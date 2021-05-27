@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kubg.mappers.adminMapper">
+
+	<!-- 카테고리 호출 -->
+	<select id="category" resultType="com.kubg.domain.CategoryVO">
+		select
+		level, cateName,
+		cateCode, cateCodeRef
+		from goods_category
+	</select>
+
+	<!-- 상품 등록 -->
+	<insert id="register">
+		insert into tbl_goods (gdsName, gdsPrice, gdsDes)
+		    values (#{gdsName},	#{gdsPrice}, #{gdsDes})
+	</insert>
+
+
+	<!-- 상품 목록 -->
+	<select id="goodslist" resultType="com.kubg.domain.GoodsVO">
+		select
+		gdsName, gdsPrice,
+		gdsDes	from tbl_goods
+	</select>
+
+
+	<!-- 판매 순위 -->
+	<select id="ranklist" resultType="com.kubg.domain.RankVO">
+		select
+		pName, stock, price	
+		from tbl_sale
+			order by price desc
+	</select>
+	
+
+	
+	<!-- 구매 회원 목록 -->
+	<select id="clientorder" resultType="com.kubg.domain.MemberVO">
+		select
+		userName, userStock, userPurchase, userPhon
+		from tbl_userorderinfo
+	</select>
+	
+		<!-- 회원 관리 -->
+	<select id="clientlist" resultType="com.kubg.domain.MemberVO">
+		select
+		userName, userPhon, userAddr1	
+		from tbl_member			
+	</select>
+
+	<!-- 회원 정보 상세조회 -->
+	<select id="clientdetaillist" resultType="com.kubg.domain.MemberVO">
+			select
+				userName, userPhon, userAddr1
+			from tbl_member
+		where userName = #{userName} 
+	</select>
+</mapper>
